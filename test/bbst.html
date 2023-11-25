@@ -17,6 +17,21 @@
     <h1>Balanced Binary Search Tree</h1>
     <p id="bst"></p>
 
+    <style>
+      table {
+        margin: auto;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 10px;
+        width: 50px; /* Adjust the width as needed */
+      }
+    </style>
+
     <script>
       let inputCount = 0;
       document
@@ -67,9 +82,26 @@
         });
         document.getElementById("sorted").innerHTML = array;
         node(array, 1);
+        createBinaryTreeTable(array);
       }
 
       function node(array, level) {
+        // Example (even number of elements):
+        // [5,6,7,3,4,2,1,8,9,10].sort
+        // [1,2,3,4,5,6,7,8,9,10].length = 10
+        // [1,2,3,4,5,6,7,8,9,10].medianIndex = 5
+        // [1,2,3,4,5,6,7,8,9,10].medianElement = 6
+        // [1,2,3,4,5,6,7,8,9,10].leftElement = [1,2,3,4,5]
+        // [1,2,3,4,5,6,7,8,9,10].rightElement = [7,8,9,10]
+
+        // Example (odd number of elements):
+        // [5,6,7,3,4,2,1,8,9].sort
+        // [1,2,3,4,5,6,7,8,9].length = 9
+        // [1,2,3,4,5,6,7,8,9].medianIndex = 4
+        // [1,2,3,4,5,6,7,8,9].medianElement = 5
+        // [1,2,3,4,5,6,7,8,9].leftElement = [1,2,3,4]
+        // [1,2,3,4,5,6,7,8,9].rightElement = [6,7,8,9]
+
         var length = array.length;
         if (length > 1) {
           var medianIndex = Math.floor((length + 1) / 2);
@@ -116,6 +148,28 @@
         } else {
           return;
         }
+      }
+
+      function createBinaryTreeTable(array) {
+        const table = document.createElement("table");
+        const levels = Math.ceil(Math.log2(array.length + 1)); // Calculate the number of levels
+
+        for (let i = 0; i < levels; i++) {
+          const row = table.insertRow();
+
+          for (let j = 0; j < Math.pow(2, i); j++) {
+            const cell = row.insertCell();
+            const index = Math.pow(2, i) - 1 + j;
+
+            if (index < array.length) {
+              cell.textContent = array[index];
+              const colspan = Math.pow(2, levels - i - 1);
+              cell.colSpan = colspan;
+            }
+          }
+        }
+
+        document.body.appendChild(table);
       }
     </script>
   </body>

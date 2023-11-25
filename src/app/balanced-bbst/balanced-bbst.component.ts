@@ -84,10 +84,16 @@ export class BalancedBbstComponent {
     this.sortedArray = array;
 
     // Call the node function and update the bstOutput
-    this.bstOutput = this.node(array, 1);
+    this.bstOutput = this.node(array, 1, 0, 0);
+    this.createBinaryTreeTable(array);
   }
 
-  private node(array: number[], level: number): string {
+  private node(
+    array: number[],
+    level: number,
+    direction: number,
+    previousMedianElement: number
+  ): string {
     const length = array.length;
     let output = '';
 
@@ -113,25 +119,61 @@ export class BalancedBbstComponent {
       const leftElement = array.slice(0, medianIndex - 1);
       const rightElement = array.slice(medianIndex, length);
 
-      if (level === 1) {
+      if (level == 1 && direction == 0) {
         output = `root element in level ${level} = ${medianElement}`;
       } else {
-        output = `<br>node element in level ${level} = ${medianElement}`;
+        if (direction == -1) {
+          output = `<br>level ${level}: left node of ${previousMedianElement} = ${medianElement}`;
+        }
+        if (direction == 1) {
+          output = `<br>level ${level}: right node of ${previousMedianElement} = ${medianElement}`;
+        }
       }
 
-      if (leftElement.length !== 0) {
-        output += `<br>left element of ${level} = ${leftElement}`;
+      if (leftElement.length == 0) {
+        output += `<br>left part of element ${medianElement} = N/A`;
+      } else {
+        output += `<br>left part of element ${medianElement} = ${leftElement}`;
       }
-      if (rightElement.length !== 0) {
-        output += `<br>right element of level ${level} = ${rightElement}`;
+
+      if (rightElement.length == 0) {
+        output += `<br>right part of element ${medianElement} = N/A`;
+      } else {
+        output += `<br>right part of element ${medianElement} = ${rightElement}`;
       }
+
       output += `<br>`;
-
       level++;
-      output += this.node(leftElement, level);
-      output += this.node(rightElement, level);
+      output += this.node(leftElement, level, -1, medianElement);
+      output += this.node(rightElement, level, 1, medianElement);
+    } else if (length == 1 && level == 1) {
+      output = `<br><br>root element in level ${level} = ${array[0]}`;
+    } else if (length == 0 && level == 1) {
+      output = `<br><br>root element in level ${level} = null`;
     }
 
     return output;
+  }
+
+  private createBinaryTreeTable(array: number[]): HTMLTableElement {
+    const table = document.createElement('table');
+    const levels = Math.ceil(Math.log2(array.length + 1)); // Calculate the number of levels
+
+    for (let i = 0; i < levels; i++) {
+      const row = table.insertRow();
+
+      for (let j = 0; j < Math.pow(2, i); j++) {
+        const cell = row.insertCell();
+        const index = Math.pow(2, i) - 1 + j;
+
+        if (index < array.length) {
+          cell.textContent = array[index].toString(); // Convert number to string
+          const colspan = Math.pow(2, levels - i - 1);
+          cell.colSpan = colspan;
+        }
+      }
+    }
+
+    return table;
   }
 }
