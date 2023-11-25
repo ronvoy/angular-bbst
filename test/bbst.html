@@ -112,13 +112,13 @@
           if (level == 1) {
             document.getElementById(
               "bst"
-            ).innerHTML = `root element in level ${level} = ${medianElement}`;
+            ).innerHTML = `level ${level}: root element = ${medianElement}`;
           } else {
             document
               .getElementById("bst")
               .insertAdjacentHTML(
                 "beforeend",
-                `<br>node element in level ${level} = ${medianElement}`
+                `<br>level ${level}: node element = ${medianElement}`
               );
           }
 
@@ -127,7 +127,7 @@
               .getElementById("bst")
               .insertAdjacentHTML(
                 "beforeend",
-                `<br>left element of ${level} = ${leftElement}`
+                `<br>level ${level}: left part of element ${medianElement} = ${leftElement}`
               );
           }
           if (rightElement != "") {
@@ -135,7 +135,7 @@
               .getElementById("bst")
               .insertAdjacentHTML(
                 "beforeend",
-                `<br>right element of level ${level} = ${rightElement}`
+                `<br>level ${level}: right part of element ${medianElement} = ${rightElement}`
               );
           }
           document
