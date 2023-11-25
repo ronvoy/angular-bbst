@@ -1,0 +1,12 @@
+<!-- balanced-bbst.component.html -->
+
+<button (click)="addInputField()">Add Input Field</button>
+<button (click)="test()">Generate BBST</button>
+<div id="input-container"></div>
+<div id="output-container"></div>
+
+<h1>Sorted Array</h1>
+<p>{{ sortedArray }}</p>
+
+<h1>Balanced Binary Search Tree</h1>
+<p [innerHTML]="bstOutput"></p>
