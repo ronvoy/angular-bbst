@@ -91,6 +91,22 @@ export class BalancedBbstComponent {
     const length = array.length;
     let output = '';
 
+    // Example (even number of elements):
+    // [5,6,7,3,4,2,1,8,9,10].sort
+    // [1,2,3,4,5,6,7,8,9,10].length = 10
+    // [1,2,3,4,5,6,7,8,9,10].medianIndex = 5
+    // [1,2,3,4,5,6,7,8,9,10].medianElement = 6
+    // [1,2,3,4,5,6,7,8,9,10].leftElement = [1,2,3,4,5]
+    // [1,2,3,4,5,6,7,8,9,10].rightElement = [7,8,9,10]
+
+    // Example (odd number of elements):
+    // [5,6,7,3,4,2,1,8,9].sort
+    // [1,2,3,4,5,6,7,8,9].length = 9
+    // [1,2,3,4,5,6,7,8,9].medianIndex = 4
+    // [1,2,3,4,5,6,7,8,9].medianElement = 5
+    // [1,2,3,4,5,6,7,8,9].leftElement = [1,2,3,4]
+    // [1,2,3,4,5,6,7,8,9].rightElement = [6,7,8,9]
+
     if (length > 1) {
       const medianIndex = Math.floor((length + 1) / 2);
       const medianElement = array[medianIndex - 1];
