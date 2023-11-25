@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Balanced Binary Search Tree</title>
+  </head>
+  <body>
+    <button id="add-input">Add Input Field</button>
+    <button id="submit">Generate BBST</button>
+    <div id="input-container"></div>
+    <div id="output-container"></div>
+
+    <h1>Sorted Array</h1>
+    <p id="sorted"></p>
+
+    <h1>Balanced Binary Search Tree</h1>
+    <p id="bst"></p>
+
+    <script>
+      let inputCount = 0;
+      document
+        .getElementById("add-input")
+        .addEventListener("click", addInputField);
+      document.getElementById("submit").addEventListener("click", test);
+
+      function addInputField() {
+        inputCount++;
+        const container = document.getElementById("input-container");
+        const inputFieldDiv = document.createElement("div");
+
+        const inputField = document.createElement("input");
+        inputField.type = "text";
+        inputField.name = `input-${inputCount}`;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", function () {
+          container.removeChild(inputFieldDiv);
+        });
+
+        inputFieldDiv.appendChild(inputField);
+        inputFieldDiv.appendChild(deleteButton);
+
+        container.appendChild(inputFieldDiv);
+      }
+
+      function test() {
+        const inputContainer = document.getElementById("input-container");
+        const arrField = [];
+        const inputFields = inputContainer.querySelectorAll("input");
+        inputFields.forEach(function (inputField) {
+          arrField.push(inputField.value);
+        });
+
+        document.getElementById("submit").textContent = "Update Value";
+
+        let array = arrField.map(function (item) {
+          return parseInt(item);
+        });
+
+        const uniqarray = [...new Set(array)];
+        array = uniqarray;
+
+        array.sort(function (a, b) {
+          return a - b;
+        });
+        document.getElementById("sorted").innerHTML = array;
+        node(array, 1);
+      }
+
+      function node(array, level) {
+        var length = array.length;
+        if (length > 1) {
+          var medianIndex = Math.floor((length + 1) / 2);
+          var medianElement = array[medianIndex - 1];
+          var leftElement = array.slice(0, medianIndex - 1);
+          var rightElement = array.slice(medianIndex, length);
+
+          if (level == 1) {
+            document.getElementById(
+              "bst"
+            ).innerHTML = `root element in level ${level} = ${medianElement}`;
+          } else {
+            document
+              .getElementById("bst")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<br>node element in level ${level} = ${medianElement}`
+              );
+          }
+
+          if (leftElement != "") {
+            document
+              .getElementById("bst")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<br>left element of ${level} = ${leftElement}`
+              );
+          }
+          if (rightElement != "") {
+            document
+              .getElementById("bst")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<br>right element of level ${level} = ${rightElement}`
+              );
+          }
+          document
+            .getElementById("bst")
+            .insertAdjacentHTML("beforeend", `<br>`);
+
+          level++;
+          node(leftElement, level);
+          node(rightElement, level);
+        } else {
+          return;
+        }
+      }
+    </script>
+  </body>
+</html>
