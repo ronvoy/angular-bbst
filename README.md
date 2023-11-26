@@ -1,7 +1,7 @@
 **Installation:**
 
 - download the project
-- cd in to the proj directory
+- cd in to the project directory
 - hit `npm install` and then `ng serve`
 
 **TODOs:**
