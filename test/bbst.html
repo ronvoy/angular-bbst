@@ -153,7 +153,9 @@
 
       function createBinaryTreeTable(array) {
         const table = document.createElement("table");
-        const levels = Math.ceil(Math.log2(array.length + 1)); // Calculate the number of levels
+
+        // Calculate the number of levels
+        const levels = Math.ceil(Math.log2(array.length + 1));
 
         for (let i = 0; i < levels; i++) {
           const row = table.insertRow();
