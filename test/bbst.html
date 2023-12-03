@@ -146,6 +146,7 @@
             .insertAdjacentHTML("beforeend", `<br>`);
 
           level++;
+          sortedArray.push(leftElement);
           node(leftElement, level);
           node(rightElement, level);
         } else {
