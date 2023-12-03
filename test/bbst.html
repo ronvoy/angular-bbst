@@ -110,6 +110,8 @@
           var leftElement = array.slice(0, medianIndex - 1);
           var rightElement = array.slice(medianIndex, length);
 
+          sortedArray.push(medianElement);
+
           if (level == 1) {
             document.getElementById(
               "bst"
